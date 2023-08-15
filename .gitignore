@@ -1,3 +1,6 @@
+# Custom items
+mongodb_connection
+
 # Logs
 logs
 *.log
