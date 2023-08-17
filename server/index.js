@@ -14,7 +14,6 @@ app.use(cors());
 app.use('/posts', postRoutes);
 
 // const CONNECTION_URL = 'nunyabidness';
-const CONNECTION_URL = 'mongodb+srv://cluster1user:YBUVQrTh0AxRTLoF@cluster1.46jnohf.mongodb.net/?retryWrites=true&w=majority';
 
 const PORT = process.env.PORT || 5000;
 
