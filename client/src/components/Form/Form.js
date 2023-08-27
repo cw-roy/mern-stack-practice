@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import FileBase from 'react-file-base64';
 
 import useStyles from './styles';
 import { createPost, updatePost } from '../../actions/posts';
@@ -35,15 +34,28 @@ const Form = ({ currentId, setCurrentId }) => {
 
   return (
     <Paper className={classes.paper}>
-      <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <Typography variant="h6">{currentId ? `Editing "${post.title}"` : 'Creating a Memory'}</Typography>
-        <TextField name="creator" variant="outlined" label="Creator" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} />
+      <form autoComplete="off" noValidate className={classes.root} onSubmit={handleSubmit}>
+        <Typography align='center' variant="h6">{currentId ? `Editing "${post.title}"` : 'Post a Memory'} </Typography>
+        <TextField name="creator" variant="outlined" label="Your Name (optional)" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} />
         <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
         <TextField name="message" variant="outlined" label="Message" fullWidth multiline minRows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
         <TextField name="tags" variant="outlined" label="Tags (comma separated)" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />
-        <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
-        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
-        <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
+
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Button className={classes.buttonFileInput} variant="contained" color="primary" size="large" component="label" fullWidth>
+              Add an Image
+              <input type="file" style={{ display: 'none' }} onChange={(e) => { const file = e.target.files[0]; if (file) { setPostData({ ...postData, selectedFile: file }); } }} />
+            </Button>
+          </Grid>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
+        </Grid>
       </form>
     </Paper>
   );
@@ -52,6 +64,8 @@ const Form = ({ currentId, setCurrentId }) => {
 export default Form;
 
 
+
+// ORIGINAL FUNCTIONING CODE
 // import React, { useState, useEffect } from "react";
 // import { TextField, Button, Typography, Paper } from '@material-ui/core';
 // import FileBase from 'react-file-base64';
