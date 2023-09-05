@@ -48,7 +48,7 @@ const Form = ({ currentId, setCurrentId }) => {
           <Grid item xs={12} sm={6}>
             <Button className={classes.buttonFileInput} variant="contained" color="primary" size="large" component="label" fullWidth>
               Add an Image
-              <input type="file" style={{ display: 'none' }} onChange={(e) => { const file = e.target.files[0]; if (file) { setPostData({ ...postData, selectedFile: file }); } }} />
+              <input type="file" className={classes.buttonSubmit} style={{ display: 'none' }} onChange={(e) => { const file = e.target.files[0]; if (file) { setPostData({ ...postData, selectedFile: file }); } }} />
             </Button>
           </Grid>
         </Grid>
